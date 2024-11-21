@@ -1,0 +1,69 @@
+{
+	"annotations": {
+		"list": []
+	},
+	"panels": [
+		{
+			"type": "stat",
+			"title": "Processed Messages",
+			"targets": [
+				{
+					"expr": "processed_messages_total",
+					"legendFormat": "",
+					"refId": "A"
+				}
+			],
+			"gridPos": {
+				"x": 0,
+				"y": 0,
+				"w": 6,
+				"h": 4
+			}
+		},
+		{
+			"type": "stat",
+			"title": "Error Messages",
+			"targets": [
+				{
+					"expr": "error_messages_total",
+					"legendFormat": "",
+					"refId": "B"
+				}
+			],
+			"gridPos": {
+				"x": 6,
+				"y": 0,
+				"w": 6,
+				"h": 4
+			}
+		},
+		{
+			"type": "graph",
+			"title": "Message Processing Latency",
+			"targets": [
+				{
+					"expr": "histogram_quantile(0.95, sum(rate(message_processing_duration_seconds_bucket[1m])) by (le))",
+					"legendFormat": "p95",
+					"refId": "C"
+				}
+			],
+			"xaxis": {
+				"mode": "time"
+			},
+			"yaxis": {
+				"label": "Latency (seconds)",
+				"format": "s"
+			},
+			"gridPos": {
+				"x": 0,
+				"y": 4,
+				"w": 12,
+				"h": 8
+			}
+		}
+	],
+	"title": "Kafka Dashboard",
+	"editable": true,
+	"version": 1,
+	"refresh": "5s"
+}
